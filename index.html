@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventaire FSASPTT</title>
+
+<!-- Styles -->
+<style>
+    :root {
+        --fsas-or: #d4af37;   /* Or ASPTT */
+        --fsas-noir: #000000; /* Noir ASPTT */
+        --fsas-blanc: #ffffff;
+        --fsas-gris: #f4f4f4;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: var(--fsas-gris);
+        margin: 0;
+        color: var(--fsas-noir);
+    }
+
+    header {
+        background-color: var(--fsas-noir);
+        color: var(--fsas-or);
+        display: flex;
+        align-items: center;
+        padding: 15px;
+    }
+
+    header img {
+        height: 60px;
+        margin-right: 15px;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: var(--fsas-blanc);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        color: var(--fsas-noir);
+        border-left: 5px solid var(--fsas-or);
+        padding-left: 10px;
+    }
+
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+    }
+
+    input, select, button {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+    }
+
+    button {
+        background-color: var(--fsas-or);
+        color: var(--fsas-noir);
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background-color: #b88c2f;
+    }
+
+    #reader {
+        width: 100%;
+        max-width: 400px;
+        margin: 15px auto;
+        border: 2px solid var(--fsas-noir);
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    ul li {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        font-size: 0.95em;
+    }
+
+    footer {
+        text-align: center;
+        padding: 10px;
+        background-color: var(--fsas-noir);
+        color: var(--fsas-or);
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/New_Logo-FSASPTT-Dor%C3%A9-F%C3%A9d%C3%A9ration-omnisports.png" alt="Logo FSASPTT">
+    <h1>Inventaire FSASPTT</h1>
+</header>
+
+<div class="container">
+    <h2>Ajouter / Mettre à jour le matériel</h2>
+
+    <label for="numero">Numéro (scan ou saisie)</label>
+    <input type="text" id="numero" placeholder="Scannez ou saisissez le code-barres">
+    <button onclick="startScanner()">📷 Démarrer le scanner</button>
+    <div id="reader"></div>
+
+    <label for="nom">Nom</label>
+    <input type="text" id="nom">
+
+    <label for="utilisateur">Utilisateur</label>
+    <input type="text" id="utilisateur">
+
+    <label for="type">Type</label>
+    <input type="text" id="type">
+
+    <label for="modele">Modèle</label>
+    <input type="text" id="modele">
+
+    <label for="description">Description</label>
+    <input type="text" id="description">
+
+    <label for="service">Service</label>
+    <input type="text" id="service">
+
+    <label for="date_achat">Date d'achat</label>
+    <input type="date" id="date_achat">
+
+    <label for="etat">État</label>
+    <select id="etat">
+        <option value="Entrée">Entrée</option>
+        <option value="Sortie">Sortie</option>
+    </select>
+
+    <label for="condition">Condition</label>
+    <select id="condition">
+        <option value="Neuf">Neuf</option>
+        <option value="Pas Neuf">Pas Neuf</option>
+    </select>
+
+    <label for="reserve">Réservé</label>
+    <input type="checkbox" id="reserve">
+
+    <button onclick="ajouterMateriel()">✅ Ajouter / Mettre à jour</button>
+
+    <h2>Liste du matériel</h2>
+    <ul id="materielList"></ul>
+</div>
+
+<footer>
+    &copy; 2025 FSASPTT - Fédération Sportive des ASPTT
+</footer>
+
+<!-- Librairie scanner compatible iPhone -->
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+    // Gestion du matériel en LocalStorage
+    function getMateriel() { return JSON.parse(localStorage.getItem('materiel') || '[]'); }
+    function saveMateriel(data) { localStorage.setItem('materiel', JSON.stringify(data)); }
+
+    function ajouterMateriel() {
+        const materiel = {
+            numero: document.getElementById('numero').value,
+            nom: document.getElementById('nom').value,
+            utilisateur: document.getElementById('utilisateur').value,
+            type: document.getElementById('type').value,
+            modele: document.getElementById('modele').value,
+            description: document.getElementById('description').value,
+            service: document.getElementById('service').value,
+            date_achat: document.getElementById('date_achat').value,
+            etat: document.getElementById('etat').value,
+            condition: document.getElementById('condition').value,
+            reserve: document.getElementById('reserve').checked
+        };
+
+        let liste = getMateriel();
+        const index = liste.findIndex(m => m.numero === materiel.numero);
+        if(index !== -1) {
+            liste[index] = materiel;
+            alert("Matériel mis à jour !");
+        } else {
+            liste.push(materiel);
+            alert("Matériel ajouté !");
+        }
+
+        saveMateriel(liste);
+        chargerMateriel();
+        document.getElementById('numero').value = '';
+    }
+
+    function chargerMateriel() {
+        const liste = getMateriel();
+        const ul = document.getElementById('materielList');
+        ul.innerHTML = '';
+        liste.forEach(m => {
+            ul.innerHTML += `<li>
+                <b>${m.numero}</b> - ${m.nom} (${m.type}, ${m.modele})<br>
+                État: ${m.etat}, Condition: ${m.condition}, ${m.reserve ? '📌 Réservé' : 'Libre'}
+            </li>`;
+        });
+    }
+
+    // Scanner avec html5-qrcode (compatible iOS/Android)
+    let html5QrCode;
+    function startScanner() {
+        if (html5QrCode) {
+            html5QrCode.stop();
+        }
+        html5QrCode = new Html5Qrcode("reader");
+        html5QrCode.start(
+            { facingMode: "environment" }, // caméra arrière
+            { fps: 10, qrbox: 250 },
+            (decodedText) => {
+                document.getElementById("numero").value = decodedText;
+                html5QrCode.stop();
+                alert("Code détecté : " + decodedText);
+            },
+            (error) => {
+                console.warn("Scanning...", error);
+            }
+        ).catch(err => {
+            console.error("Erreur démarrage caméra : ", err);
+            alert("Impossible d'accéder à la caméra. Vérifie les permissions.");
+        });
+    }
+
+    window.onload = chargerMateriel;
+</script>
+
+</body>
+</html>
