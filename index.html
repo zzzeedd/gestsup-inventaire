@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inventaire FSASPTT</title>
-
 <style>
 :root {
     --fsas-or: #d4af37;
@@ -20,14 +19,14 @@ body {
     color: var(--fsas-noir);
 }
 
-/* Header avec titre centré */
+/* Header */
 header {
     background-color: var(--fsas-noir);
     color: var(--fsas-or);
     display: flex;
-    justify-content: center;
     align-items: center;
     padding: 15px;
+    justify-content: space-between;
     position: relative;
 }
 
@@ -36,11 +35,10 @@ header h1 {
     margin: 0;
     font-weight: bold;
     text-align: center;
+    flex-grow: 1;
 }
 
 #menuBtn {
-    position: absolute;
-    right: 15px;
     font-size: 1.8em;
     background: none;
     border: none;
@@ -63,11 +61,9 @@ header h1 {
     z-index: 1000;
 }
 
-#sidebar.active {
-    left: 0;
-}
+#sidebar.active { left: 0; }
 
-/* Contenu principal */
+/* Container */
 .container {
     max-width: 900px;
     margin: 20px auto;
@@ -106,9 +102,7 @@ button {
     font-weight: bold;
 }
 
-button:hover {
-    background-color: #b88c2f;
-}
+button:hover { background-color: #b88c2f; }
 
 #reader {
     width: 100%;
@@ -117,16 +111,8 @@ button:hover {
     border: 2px solid var(--fsas-noir);
 }
 
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-ul li {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    font-size: 0.95em;
-}
+ul { list-style: none; padding: 0; }
+ul li { padding: 8px; border-bottom: 1px solid #ddd; font-size: 0.95em; }
 
 footer {
     text-align: center;
@@ -141,24 +127,18 @@ footer {
 </head>
 <body>
 
-<header style="background-color:#000000; color:#d4af37; display:flex; align-items:center; justify-content:space-between; padding:15px;">
-    <!-- Hamburger à gauche -->
-    <button id="menuBtn" style="font-size:1.8em; background:none; border:none; color:#d4af37; cursor:pointer;">
-        &#9776;
-    </button>
+<header>
+    <!-- Hamburger -->
+    <button id="menuBtn">&#9776;</button>
 
-    <!-- Titre centré -->
-    <h1 style="margin:0; font-size:1.8em; font-weight:bold; text-align:center; flex-grow:1;">Inventaire FSASPTT</h1>
+    <!-- Titre -->
+    <h1>Inventaire FSASPTT</h1>
 
-    <!-- Logo à droite -->
+    <!-- Logo -->
     <img src="Logo FSASPTT Blanc de╠ütoure╠ü.png" alt="Logo FSASPTT" style="height:60px;">
 </header>
 
-
-
-
-
-<!-- Sidebar menu -->
+<!-- Sidebar -->
 <div id="sidebar">
   <h3>Historique du matériel</h3>
   <input type="text" id="searchInput" placeholder="Rechercher...">
@@ -173,14 +153,14 @@ footer {
   <label for="filterService">Filtrer par Service :</label>
   <select id="filterService">
    <option value="">(tous)</option>
-  <option value="Direction générale">Direction générale</option>
-  <option value="Administratif et Financier">Administratif et Financier</option>
-  <option value="Marketing Communication Partenariats">Marketing Communication Partenariats</option>
-  <option value="Formation, Réseaux et Politiques Publiques">Formation, Réseaux et Politiques Publiques</option>
-  <option value="Innovation Sportive">Innovation Sportive</option>
-  <option value="Système d'information">Système d'information</option>
-  <option value="J'Mactiv Entreprise">J'Mactiv Entreprise</option>
-  <option value="Territoires">Territoires</option>
+   <option value="Direction générale">Direction générale</option>
+   <option value="Administratif et Financier">Administratif et Financier</option>
+   <option value="Marketing Communication Partenariats">Marketing Communication Partenariats</option>
+   <option value="Formation, Réseaux et Politiques Publiques">Formation, Réseaux et Politiques Publiques</option>
+   <option value="Innovation Sportive">Innovation Sportive</option>
+   <option value="Système d'information">Système d'information</option>
+   <option value="J'Mactiv Entreprise">J'Mactiv Entreprise</option>
+   <option value="Territoires">Territoires</option>
   </select>
 
   <ul id="historyList"></ul>
@@ -190,7 +170,7 @@ footer {
     <h2>Ajouter / Mettre à jour le matériel</h2>
 
     <label for="numero">Numéro (scan ou saisie)</label>
-    <input type="text" id="numero" placeholder="Scannez ou saisissez le code-barres">
+    <input type="text" id="numero" placeholder="Scannez ou saisissez le code">
 
     <div id="reader"></div>
 
@@ -205,6 +185,7 @@ footer {
       <option value="PC Portable">PC Portable</option>
       <option value="Ecran">Ecran</option>
       <option value="Casque">Casque</option>
+      <option value="Souris">Souris</option>
     </select>
 
     <label for="modele">Modèle</label>
@@ -213,19 +194,18 @@ footer {
     <label for="description">Description</label>
     <input type="text" id="description">
 
-   <label for="service">Service</label>
-<select id="service">
-  <option value="">(tous)</option>
-  <option value="Direction générale">Direction générale</option>
-  <option value="Administratif et Financier">Administratif et Financier</option>
-  <option value="Marketing Communication Partenariats">Marketing Communication Partenariats</option>
-  <option value="Formation, Réseaux et Politiques Publiques">Formation, Réseaux et Politiques Publiques</option>
-  <option value="Innovation Sportive">Innovation Sportive</option>
-  <option value="Système d'information">Système d'information</option>
-  <option value="J'Mactiv Entreprise">J'Mactiv Entreprise</option>
-  <option value="Territoires">Territoires</option>
-</select>
-
+    <label for="service">Service</label>
+    <select id="service">
+      <option value="">(tous)</option>
+      <option value="Direction générale">Direction générale</option>
+      <option value="Administratif et Financier">Administratif et Financier</option>
+      <option value="Marketing Communication Partenariats">Marketing Communication Partenariats</option>
+      <option value="Formation, Réseaux et Politiques Publiques">Formation, Réseaux et Politiques Publiques</option>
+      <option value="Innovation Sportive">Innovation Sportive</option>
+      <option value="Système d'information">Système d'information</option>
+      <option value="J'Mactiv Entreprise">J'Mactiv Entreprise</option>
+      <option value="Territoires">Territoires</option>
+    </select>
 
     <label for="date_achat">Date d'achat</label>
     <input type="date" id="date_achat">
@@ -319,15 +299,9 @@ function chargerMateriel() {
     });
 }
 
-// Scanner QR
-<div id="reader" style="width:100%; max-width:400px; margin:15px auto; border:2px solid #000;"></div>
-
-<script src="https://unpkg.com/html5-qrcode"></script>
-<script>
+// Scanner QR et codes-barres
 function startScanner() {
     const html5QrCode = new Html5Qrcode("reader");
-
-    // Liste de formats à scanner : QR et codes-barres classiques
     const config = {
         fps: 10,
         qrbox: 250,
@@ -343,33 +317,25 @@ function startScanner() {
     };
 
     html5QrCode.start(
-        { facingMode: "environment" }, // caméra arrière
+        { facingMode: "environment" },
         config,
-        (decodedText, decodedResult) => {
+        (decodedText) => {
             document.getElementById("numero").value = decodedText;
-            html5QrCode.stop().then(() => {
-                alert("Code détecté : " + decodedText);
-            });
         },
         (errorMessage) => {
-            // en mode debug : console.warn(errorMessage);
+            // console.warn(errorMessage);
         }
     ).catch(err => {
-        console.error("Impossible d'accéder à la caméra : ", err);
+        console.error("Impossible d'accéder à la caméra :", err);
         alert("Vérifie HTTPS et permissions de la caméra.");
     });
 }
 
-// Démarrage au chargement
-window.onload = () => startScanner();
+window.onload = () => {
+    startScanner();
+    chargerMateriel();
+};
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
