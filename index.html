@@ -117,6 +117,30 @@
     <img src="Logo FSASPTT Blanc de╠ütoure╠ü.png" alt="Logo FSASPTT">
     <h1>Inventaire FSASPTT</h1>
 </header>
+<!-- Barre latérale -->
+<div id="sidebar">
+  <h3>Historique du matériel</h3>
+  <input type="text" id="searchInput" placeholder="Rechercher...">
+  <label for="filterType">Filtrer par Type :</label>
+  <select id="filterType">
+    <option value="">Tous</option>
+    <option value="Ordinateur">Ordinateur</option>
+    <option value="Imprimante">Imprimante</option>
+    <option value="Mobilier">Mobilier</option>
+    <!-- Ajoute d'autres types selon ton inventaire -->
+  </select>
+
+  <label for="filterService">Filtrer par Service :</label>
+  <select id="filterService">
+    <option value="">Tous</option>
+    <option value="Direction générale">Direction générale</option>
+    <option value="Administratif et Financier">Administratif et Financier</option>
+    <option value="Communication et Marketing">Communication et Marketing</option>
+    <!-- etc. -->
+  </select>
+
+  <ul id="historyList"></ul>
+</div>
 
 <div class="container">
     <h2>Ajouter / Mettre à jour le matériel</h2>
@@ -276,6 +300,7 @@
 
 </body>
 </html>
+
 
 
 
