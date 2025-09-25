@@ -19,7 +19,6 @@ body {
     color: var(--fsas-noir);
 }
 
-/* Header */
 header {
     background-color: var(--fsas-noir);
     color: var(--fsas-or);
@@ -27,7 +26,6 @@ header {
     align-items: center;
     padding: 15px;
     justify-content: space-between;
-    position: relative;
 }
 
 header h1 {
@@ -46,7 +44,6 @@ header h1 {
     cursor: pointer;
 }
 
-/* Sidebar menu */
 #sidebar {
     position: fixed;
     top: 0;
@@ -63,7 +60,6 @@ header h1 {
 
 #sidebar.active { left: 0; }
 
-/* Container */
 .container {
     max-width: 900px;
     margin: 20px auto;
@@ -128,17 +124,11 @@ footer {
 <body>
 
 <header>
-    <!-- Hamburger -->
     <button id="menuBtn">&#9776;</button>
-
-    <!-- Titre -->
     <h1>Inventaire FSASPTT</h1>
-
-    <!-- Logo -->
     <img src="Logo FSASPTT Blanc de╠ütoure╠ü.png" alt="Logo FSASPTT" style="height:60px;">
 </header>
 
-<!-- Sidebar -->
 <div id="sidebar">
   <h3>Historique du matériel</h3>
   <input type="text" id="searchInput" placeholder="Rechercher...">
@@ -157,10 +147,6 @@ footer {
    <option value="Administratif et Financier">Administratif et Financier</option>
    <option value="Marketing Communication Partenariats">Marketing Communication Partenariats</option>
    <option value="Formation, Réseaux et Politiques Publiques">Formation, Réseaux et Politiques Publiques</option>
-   <option value="Innovation Sportive">Innovation Sportive</option>
-   <option value="Système d'information">Système d'information</option>
-   <option value="J'Mactiv Entreprise">J'Mactiv Entreprise</option>
-   <option value="Territoires">Territoires</option>
   </select>
 
   <ul id="historyList"></ul>
@@ -171,7 +157,6 @@ footer {
 
     <label for="numero">Numéro (scan ou saisie)</label>
     <input type="text" id="numero" placeholder="Scannez ou saisissez le code">
-
     <div id="reader"></div>
 
     <label for="nom">Nom</label>
@@ -180,7 +165,7 @@ footer {
     <label for="utilisateur">Utilisateur</label>
     <input type="text" id="utilisateur">
 
-    <label for="type">Type</label>
+    <label for="type">Type <button type="button" onclick="ajouterOption('type')">+</button></label>
     <select id="type">
       <option value="PC Portable">PC Portable</option>
       <option value="Ecran">Ecran</option>
@@ -194,30 +179,26 @@ footer {
     <label for="description">Description</label>
     <input type="text" id="description">
 
-    <label for="service">Service</label>
+    <label for="service">Service <button type="button" onclick="ajouterOption('service')">+</button></label>
     <select id="service">
       <option value="">(tous)</option>
       <option value="Direction générale">Direction générale</option>
       <option value="Administratif et Financier">Administratif et Financier</option>
       <option value="Marketing Communication Partenariats">Marketing Communication Partenariats</option>
       <option value="Formation, Réseaux et Politiques Publiques">Formation, Réseaux et Politiques Publiques</option>
-      <option value="Innovation Sportive">Innovation Sportive</option>
-      <option value="Système d'information">Système d'information</option>
-      <option value="J'Mactiv Entreprise">J'Mactiv Entreprise</option>
-      <option value="Territoires">Territoires</option>
     </select>
 
     <label for="date_achat">Date d'achat</label>
     <input type="date" id="date_achat">
 
-    <label for="etat">État</label>
+    <label for="etat">État <button type="button" onclick="ajouterOption('etat')">+</button></label>
     <select id="etat">
         <option value="Utilisé">Utilisé</option>
         <option value="En stock">En stock</option>
         <option value="Sortie de stock">Sortie de stock</option>
     </select>
 
-    <label for="condition">Condition</label>
+    <label for="condition">Condition <button type="button" onclick="ajouterOption('condition')">+</button></label>
     <select id="condition">
         <option value="Neuf">Neuf</option>
         <option value="Pas Neuf">Pas Neuf</option>
@@ -232,13 +213,11 @@ footer {
     <ul id="materielList"></ul>
 </div>
 
-<footer>
-    &copy; 2025 FSASPTT - Fédération Sportive des ASPTT
-</footer>
+<footer>&copy; 2025 FSASPTT - Fédération Sportive des ASPTT</footer>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
-// Hamburger menu
+// Hamburger
 const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 menuBtn.addEventListener('click', () => sidebar.classList.toggle('active'));
@@ -248,10 +227,9 @@ document.addEventListener('click', e => {
     }
 });
 
-// Date auto
-document.addEventListener('DOMContentLoaded', function() {
-    const today = new Date().toISOString().substr(0, 10);
-    document.getElementById('date_achat').value = today;
+// Date automatique
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('date_achat').value = new Date().toISOString().substr(0, 10);
 });
 
 // LocalStorage
@@ -272,16 +250,10 @@ function ajouterMateriel() {
         condition: document.getElementById('condition').value,
         reserve: document.getElementById('reserve').checked
     };
-
     let liste = getMateriel();
     const index = liste.findIndex(m => m.numero === materiel.numero);
-    if(index !== -1) {
-        liste[index] = materiel;
-        alert("Matériel mis à jour !");
-    } else {
-        liste.push(materiel);
-        alert("Matériel ajouté !");
-    }
+    if(index !== -1) { liste[index] = materiel; alert("Matériel mis à jour !"); }
+    else { liste.push(materiel); alert("Matériel ajouté !"); }
     saveMateriel(liste);
     chargerMateriel();
     document.getElementById('numero').value = '';
@@ -297,6 +269,19 @@ function chargerMateriel() {
             État: ${m.etat}, Condition: ${m.condition}, ${m.reserve ? '📌 Réservé' : 'Libre'}
         </li>`;
     });
+}
+
+// Ajouter un élément dans un select
+function ajouterOption(selectId) {
+    const select = document.getElementById(selectId);
+    const valeur = prompt("Entrez le nouveau " + selectId + " :");
+    if(valeur && valeur.trim() !== "") {
+        const option = document.createElement("option");
+        option.value = valeur.trim();
+        option.text = valeur.trim();
+        select.appendChild(option);
+        select.value = valeur.trim();
+    }
 }
 
 // Scanner QR et codes-barres
@@ -316,25 +301,13 @@ function startScanner() {
         ]
     };
 
-    html5QrCode.start(
-        { facingMode: "environment" },
-        config,
-        (decodedText) => {
-            document.getElementById("numero").value = decodedText;
-        },
-        (errorMessage) => {
-            // console.warn(errorMessage);
-        }
-    ).catch(err => {
-        console.error("Impossible d'accéder à la caméra :", err);
-        alert("Vérifie HTTPS et permissions de la caméra.");
-    });
+    html5QrCode.start({ facingMode: "environment" }, config,
+        (decodedText) => { document.getElementById("numero").value = decodedText; },
+        (errorMessage) => {}
+    ).catch(err => { alert("Vérifie HTTPS et permissions de la caméra."); });
 }
 
-window.onload = () => {
-    startScanner();
-    chargerMateriel();
-};
+window.onload = () => { startScanner(); chargerMateriel(); };
 </script>
 
 </body>
