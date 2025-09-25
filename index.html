@@ -159,10 +159,19 @@
 </select>
 
 
+<label for="date_achat">Date d'achat</label>
+<input type="date" id="date_achat">
 
-    <label for="date_achat">Date d'achat</label>
-    <input type="date" id="date_achat">
+<script>
+  // Remplit automatiquement le champ avec la date du jour
+  document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date().toISOString().substr(0, 10); // format YYYY-MM-DD
+      document.getElementById('date_achat').value = today;
+  });
+</script>
 
+
+          
     <label for="etat">État</label>
     <select id="etat">
         <option value="Utilisé">Utilisé</option>
@@ -267,6 +276,7 @@
 
 </body>
 </html>
+
 
 
 
