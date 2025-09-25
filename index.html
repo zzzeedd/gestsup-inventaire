@@ -220,21 +220,21 @@ footer {
 <main class="container">
     <form class="form-section" autocomplete="off" onsubmit="event.preventDefault(); ajouterMateriel();">
         <h2>Ajouter / Mettre à jour le matériel</h2>
-        <label for="numero">Numéro (code-barres ou manuel)</label>
+        <label for="numero"required>Numéro (code-barres ou manuel)</label>
         <input type="text" id="numero" placeholder="Scannez ou écrivez le code-barres" autocomplete="off"/>
         <div id="reader"></div>
         <label for="nom">Nom</label>
-        <input type="text" id="nom" required/>
+        <input type="text" id="nom" />
         <label for="utilisateur">Utilisateur</label>
         <input type="text" id="utilisateur"/>
         <label for="type">Type</label>
-        <select id="type">
+        <select id="type"required>
           <option value="">...</option>
           <option>PC Portable</option>
           <option>Ecran</option>
           <option>Casque</option>
         </select>
-        <label for="modele">Modèle</label>
+        <label for="modele"required>Modèle</label>
         <input type="text" id="modele"/>
         <label for="description">Description</label>
         <input type="text" id="description"/>
@@ -252,15 +252,15 @@ footer {
         </select>
         <label for="date_achat">Date d'achat</label>
         <input type="date" id="date_achat" required/>
-        <label for="etat">État</label>
-        <select id="etat">
+        <label for="etat"required>État</label>
+        <select id="etat"required>
             <option value="">...</option>
             <option>Utilisé</option>
             <option>En stock</option>
             <option>Sortie de stock</option>
         </select>
-        <label for="condition">Condition</label>
-        <select id="condition">
+        <label for="condition"required>Condition</label>
+        <select id="condition"required>
             <option value="">...</option>
             <option>Neuf</option>
             <option>Pas Neuf</option>
@@ -394,6 +394,7 @@ window.onload = () => startScanner();
 </script>
 </body>
 </html>
+
 
 
 
