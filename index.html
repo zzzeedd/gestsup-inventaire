@@ -320,31 +320,53 @@ function chargerMateriel() {
 }
 
 // Scanner QR
+<div id="reader" style="width:100%; max-width:400px; margin:15px auto; border:2px solid #000;"></div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
 function startScanner() {
     const html5QrCode = new Html5Qrcode("reader");
+
+    // Liste de formats à scanner : QR et codes-barres classiques
+    const config = {
+        fps: 10,
+        qrbox: 250,
+        formatsToSupport: [
+            Html5QrcodeSupportedFormats.QR_CODE,
+            Html5QrcodeSupportedFormats.CODE_128,
+            Html5QrcodeSupportedFormats.CODE_39,
+            Html5QrcodeSupportedFormats.EAN_13,
+            Html5QrcodeSupportedFormats.EAN_8,
+            Html5QrcodeSupportedFormats.UPC_A,
+            Html5QrcodeSupportedFormats.UPC_E
+        ]
+    };
+
     html5QrCode.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: 250 },
-        decodedText => {
+        { facingMode: "environment" }, // caméra arrière
+        config,
+        (decodedText, decodedResult) => {
             document.getElementById("numero").value = decodedText;
-            html5QrCode.stop();
-            alert("Code détecté : " + decodedText);
+            html5QrCode.stop().then(() => {
+                alert("Code détecté : " + decodedText);
+            });
         },
-        error => { console.warn("Scanning...", error); }
+        (errorMessage) => {
+            // en mode debug : console.warn(errorMessage);
+        }
     ).catch(err => {
-        console.error("Erreur démarrage caméra : ", err);
-        alert("Impossible d'accéder à la caméra. Vérifie HTTPS et permissions.");
+        console.error("Impossible d'accéder à la caméra : ", err);
+        alert("Vérifie HTTPS et permissions de la caméra.");
     });
 }
 
-window.onload = () => {
-    chargerMateriel();
-    startScanner();
-};
+// Démarrage au chargement
+window.onload = () => startScanner();
 </script>
 
 </body>
 </html>
+
 
 
 
