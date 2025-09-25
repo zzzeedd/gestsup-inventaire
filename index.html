@@ -1,108 +1,316 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu ASPTT</title>
-  <style>
-    /* Style de base du menu */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .asptt-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #f5f5f5;
-      padding: 10px 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .asptt-logo img {
-      height: 60px;
-    }
-    nav.asptt-nav {
-      display: flex;
-      gap: 15px;
-    }
-    nav.asptt-nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-      padding: 5px 10px;
-      transition: background 0.3s;
-    }
-    nav.asptt-nav a:hover {
-      background-color: #ddd;
-      border-radius: 4px;
-    }
-    /* Sous-menu */
-    .submenu {
-      display: none;
-      position: absolute;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      margin-top: 5px;
-      list-style: none;
-      padding: 0;
-    }
-    .submenu li a {
-      display: block;
-      padding: 5px 15px;
-      color: #333;
-    }
-    .submenu li a:hover {
-      background-color: #eee;
-    }
-    .nav-item {
-      position: relative;
-    }
-    .nav-item:hover .submenu {
-      display: block;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventaire FSASPTT</title>
+<style>
+:root {
+    --fsas-or: #d4af37;
+    --fsas-noir: #000000;
+    --fsas-blanc: #ffffff;
+    --fsas-gris: #f4f4f4;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--fsas-gris);
+    margin: 0;
+    color: var(--fsas-noir);
+}
+
+/* Header */
+header {
+    background-color: var(--fsas-noir);
+    color: var(--fsas-or);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+}
+
+header h1 {
+    font-size: 1.8em;
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+}
+
+#menuBtn {
+    font-size: 1.8em;
+    background: none;
+    border: none;
+    color: var(--fsas-or);
+    cursor: pointer;
+}
+
+/* Sidebar */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100%;
+    background-color: var(--fsas-blanc);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    padding: 20px;
+    overflow-y: auto;
+    transition: left 0.3s;
+    z-index: 1000;
+}
+#sidebar.active { left: 0; }
+
+#sidebar h3 { margin-top: 0; }
+#sidebar input, #sidebar select { width: 100%; margin-bottom: 10px; padding: 5px; }
+
+/* Container principal */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--fsas-blanc);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: var(--fsas-noir);
+    border-left: 5px solid var(--fsas-or);
+    padding-left: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+button {
+    background-color: var(--fsas-or);
+    color: var(--fsas-noir);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+button:hover { background-color: #b88c2f; }
+
+#reader {
+    width: 100%;
+    max-width: 400px;
+    margin: 15px auto;
+    border: 2px solid var(--fsas-noir);
+}
+
+ul { list-style: none; padding: 0; }
+ul li { padding: 8px; border-bottom: 1px solid #ddd; font-size: 0.95em; }
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: var(--fsas-noir);
+    color: var(--fsas-or);
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+</style>
 </head>
 <body>
 
-  <header class="asptt-header">
-    <div class="asptt-logo">
-      <a href="https://asptt.com/">
-        <img src="https://asptt.com/wp-content/uploads/2022/08/ASPTT-FEDERATION-OMNISPORTS-rectangle.svg" alt="ASPTT Fédération Omnisports">
-      </a>
-    </div>
+<header>
+    <button id="menuBtn">&#9776;</button>
+    <h1>Inventaire FSASPTT</h1>
+    <img src="Logo FSASPTT Blanc de╠ütoure╠ü.png" alt="Logo FSASPTT" style="height:60px;">
+</header>
 
-    <nav class="asptt-nav">
-      <div class="nav-item">
-        <a href="#">Accueil</a>
-      </div>
-      <div class="nav-item">
-        <a href="#">Sports</a>
-        <ul class="submenu">
-          <li><a href="#">Football</a></li>
-          <li><a href="#">Basketball</a></li>
-          <li><a href="#">Natation</a></li>
-        </ul>
-      </div>
-      <div class="nav-item">
-        <a href="#">Événements</a>
-        <ul class="submenu">
-          <li><a href="#">Calendrier</a></li>
-          <li><a href="#">Compétitions</a></li>
-        </ul>
-      </div>
-      <div class="nav-item">
-        <a href="#">Contact</a>
-      </div>
-    </nav>
-  </header>
+<!-- Sidebar menu -->
+<div id="sidebar">
+  <h3>Historique du matériel</h3>
+  <input type="text" id="searchInput" placeholder="Rechercher...">
+  
+  <label for="filterType">Filtrer par Type :</label>
+  <select id="filterType">
+    <option value="">Tous</option>
+    <option value="Ordinateur">Ordinateur</option>
+    <option value="Imprimante">Imprimante</option>
+    <option value="Mobilier">Mobilier</option>
+  </select>
 
-  <main>
-    <section style="padding: 20px;">
-      <h1>Bienvenue sur le site de l'ASPTT</h1>
-      <p>Ceci est un exemple de page intégrant votre menu ASPTT complet.</p>
-    </section>
-  </main>
+  <label for="filterService">Filtrer par Service :</label>
+  <select id="filterService">
+    <option value="">Tous</option>
+    <option value="Direction générale">Direction générale</option>
+    <option value="Administratif et Financier">Administratif et Financier</option>
+    <option value="Marketing Communication Partenariats">Marketing Communication Partenariats</option>
+    <option value="Formation, Réseaux et Politiques Publiques">Formation, Réseaux et Politiques Publiques</option>
+    <option value="Innovation Sportive">Innovation Sportive</option>
+    <option value="Système d'information">Système d'information</option>
+    <option value="J'Mactiv Entreprise">J'Mactiv Entreprise</option>
+    <option value="Territoires">Territoires</option>
+  </select>
 
+  <ul id="historyList"></ul>
+</div>
+
+<div class="container">
+    <h2>Ajouter / Mettre à jour le matériel</h2>
+
+    <label for="numero">Numéro (scan ou saisie)</label>
+    <input type="text" id="numero" placeholder="Scannez ou saisissez le code-barres">
+
+    <div id="reader"></div>
+
+    <label for="nom">Nom</label>
+    <input type="text" id="nom">
+
+    <label for="utilisateur">Utilisateur</label>
+    <input type="text" id="utilisateur">
+
+    <label for="type">Type</label>
+    <select id="type">
+      <option value="PC Portable">PC Portable</option>
+      <option value="Ecran">Ecran</option>
+      <option value="Casque">Casque</option>
+    </select>
+
+    <label for="modele">Modèle</label>
+    <input type="text" id="modele">
+
+    <label for="description">Description</label>
+    <input type="text" id="description">
+
+    <label for="service">Service</label>
+    <select id="service">
+      <option value="">Tous</option>
+      <option value="Direction générale">Direction générale</option>
+      <option value="Administratif et Financier">Administratif et Financier</option>
+      <option value="Marketing Communication Partenariats">Marketing Communication Partenariats</option>
+      <option value="Formation, Réseaux et Politiques Publiques">Formation, Réseaux et Politiques Publiques</option>
+      <option value="Innovation Sportive">Innovation Sportive</option>
+      <option value="Système d'information">Système d'information</option>
+      <option value="J'Mactiv Entreprise">J'Mactiv Entreprise</option>
+      <option value="Territoires">Territoires</option>
+    </select>
+
+    <label for="date_achat">Date d'achat</label>
+    <input type="date" id="date_achat" readonly>
+
+    <label for="etat">État</label>
+    <select id="etat" readonly>
+        <option value="Utilisé">Utilisé</option>
+        <option value="En stock">En stock</option>
+        <option value="Sortie de stock">Sortie de stock</option>
+    </select>
+
+    <label for="condition">Condition</label>
+    <select id="condition" readonly>
+        <option value="Neuf">Neuf</option>
+        <option value="Pas Neuf">Pas Neuf</option>
+    </select>
+
+    <label for="reserve">Réservé</label>
+    <input type="checkbox" id="reserve">
+
+    <button onclick="ajouterMateriel()">✅ Ajouter / Mettre à jour</button>
+
+    <h2>Liste du matériel</h2>
+    <ul id="materielList"></ul>
+</div>
+
+<footer>
+    &copy; 2025 FSASPTT - Fédération Sportive des ASPTT
+</footer>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+// Hamburger menu
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+menuBtn.addEventListener('click', () => sidebar.classList.toggle('active'));
+document.addEventListener('click', e => {
+    if(!sidebar.contains(e.target) && !menuBtn.contains(e.target)){
+        sidebar.classList.remove('active');
+    }
+});
+
+// Initialisation date auto
+document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date_achat').value = today;
+    chargerMateriel();
+});
+
+// LocalStorage helpers
+function getMateriel() { return JSON.parse(localStorage.getItem('materiel') || '[]'); }
+function saveMateriel(data) { localStorage.setItem('materiel', JSON.stringify(data)); }
+
+function ajouterMateriel() {
+    const materiel = {
+        numero: document.getElementById('numero').value,
+        nom: document.getElementById('nom').value,
+        utilisateur: document.getElementById('utilisateur').value,
+        type: document.getElementById('type').value,
+        modele: document.getElementById('modele').value,
+        description: document.getElementById('description').value,
+        service: document.getElementById('service').value,
+        date_achat: document.getElementById('date_achat').value,
+        etat: document.getElementById('etat').value,
+        condition: document.getElementById('condition').value,
+        reserve: document.getElementById('reserve').checked
+    };
+
+    let liste = getMateriel();
+    const index = liste.findIndex(m => m.numero === materiel.numero);
+    if(index !== -1) {
+        liste[index] = materiel;
+        alert("Matériel mis à jour !");
+    } else {
+        liste.push(materiel);
+        alert("Matériel ajouté !");
+    }
+    saveMateriel(liste);
+    chargerMateriel();
+    document.getElementById('numero').value = '';
+}
+
+// Affichage liste
+function chargerMateriel() {
+    const liste = getMateriel();
+    const ul = document.getElementById('materielList');
+    ul.innerHTML = '';
+    liste.forEach(m => {
+        ul.innerHTML += `<li>
+            <b>${m.numero}</b> - ${m.nom} (${m.type}, ${m.modele})<br>
+            État: ${m.etat}, Condition: ${m.condition}, ${m.reserve ? '📌 Réservé' : 'Libre'}
+        </li>`;
+    });
+}
+
+// Scanner QR/Barres
+function startScanner() {
+    const html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        (decodedText) => {
+            document.getElementById("numero").value = decodedText;
+            html5QrCode.stop();
+        },
+        () => {}
+    ).catch(err => console.error(err));
+}
+window.onload = () => startScanner();
+
+</script>
 </body>
 </html>
