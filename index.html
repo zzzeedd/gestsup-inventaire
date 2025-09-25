@@ -5,110 +5,140 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inventaire FSASPTT</title>
 
-<!-- Styles -->
 <style>
-    :root {
-        --fsas-or: #d4af37;   /* Or ASPTT */
-        --fsas-noir: #000000; /* Noir ASPTT */
-        --fsas-blanc: #ffffff;
-        --fsas-gris: #f4f4f4;
-    }
+:root {
+    --fsas-or: #d4af37;
+    --fsas-noir: #000000;
+    --fsas-blanc: #ffffff;
+    --fsas-gris: #f4f4f4;
+}
 
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background-color: var(--fsas-gris);
-        margin: 0;
-        color: var(--fsas-noir);
-    }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--fsas-gris);
+    margin: 0;
+    color: var(--fsas-noir);
+}
 
-    header {
-        background-color: var(--fsas-noir);
-        color: var(--fsas-or);
-        display: flex;
-        align-items: center;
-        padding: 15px;
-    }
+/* Header et hamburger */
+header {
+    background-color: var(--fsas-noir);
+    color: var(--fsas-or);
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    position: relative;
+}
 
-    header img {
-        height: 60px;
-        margin-right: 15px;
-    }
+header img {
+    height: 60px;
+    margin-right: 15px;
+}
 
-    header h1 {
-        font-size: 1.8em;
-        margin: 0;
-        font-weight: bold;
-    }
+header h1 {
+    font-size: 1.8em;
+    margin: 0;
+    font-weight: bold;
+}
 
-    .container {
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: var(--fsas-blanc);
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
+#menuBtn {
+    font-size: 1.8em;
+    background: none;
+    border: none;
+    color: var(--fsas-or);
+    cursor: pointer;
+    margin-left: auto;
+}
 
-    h2 {
-        color: var(--fsas-noir);
-        border-left: 5px solid var(--fsas-or);
-        padding-left: 10px;
-    }
+/* Sidebar menu */
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100%;
+    background-color: var(--fsas-blanc);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    padding: 20px;
+    overflow-y: auto;
+    transition: left 0.3s;
+    z-index: 1000;
+}
 
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-        display: block;
-    }
+#sidebar.active {
+    left: 0;
+}
 
-    input, select, button {
-        width: 100%;
-        padding: 8px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 1em;
-    }
+/* Contenu principal */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--fsas-blanc);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
 
-    button {
-        background-color: var(--fsas-or);
-        color: var(--fsas-noir);
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-    }
+h2 {
+    color: var(--fsas-noir);
+    border-left: 5px solid var(--fsas-or);
+    padding-left: 10px;
+}
 
-    button:hover {
-        background-color: #b88c2f;
-    }
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
 
-    #reader {
-        width: 100%;
-        max-width: 400px;
-        margin: 15px auto;
-        border: 2px solid var(--fsas-noir);
-    }
+input, select, button {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
 
-    ul {
-        list-style: none;
-        padding: 0;
-    }
+button {
+    background-color: var(--fsas-or);
+    color: var(--fsas-noir);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-    ul li {
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-        font-size: 0.95em;
-    }
+button:hover {
+    background-color: #b88c2f;
+}
 
-    footer {
-        text-align: center;
-        padding: 10px;
-        background-color: var(--fsas-noir);
-        color: var(--fsas-or);
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-    }
+#reader {
+    width: 100%;
+    max-width: 400px;
+    margin: 15px auto;
+    border: 2px solid var(--fsas-noir);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95em;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: var(--fsas-noir);
+    color: var(--fsas-or);
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
 </style>
 </head>
 <body>
@@ -116,8 +146,10 @@
 <header>
     <img src="Logo FSASPTT Blanc de╠ütoure╠ü.png" alt="Logo FSASPTT">
     <h1>Inventaire FSASPTT</h1>
+    <button id="menuBtn">&#9776;</button>
 </header>
-<!-- Barre latérale -->
+
+<!-- Sidebar menu -->
 <div id="sidebar">
   <h3>Historique du matériel</h3>
   <input type="text" id="searchInput" placeholder="Rechercher...">
@@ -127,7 +159,6 @@
     <option value="Ordinateur">Ordinateur</option>
     <option value="Imprimante">Imprimante</option>
     <option value="Mobilier">Mobilier</option>
-    <!-- Ajoute d'autres types selon ton inventaire -->
   </select>
 
   <label for="filterService">Filtrer par Service :</label>
@@ -136,7 +167,6 @@
     <option value="Direction générale">Direction générale</option>
     <option value="Administratif et Financier">Administratif et Financier</option>
     <option value="Communication et Marketing">Communication et Marketing</option>
-    <!-- etc. -->
   </select>
 
   <ul id="historyList"></ul>
@@ -157,11 +187,11 @@
     <input type="text" id="utilisateur">
 
     <label for="type">Type</label>
-      <select id="condition">
+    <select id="type">
       <option value="PC Portable">PC Portable</option>
       <option value="Ecran">Ecran</option>
       <option value="Casque">Casque</option>
-        
+    </select>
 
     <label for="modele">Modèle</label>
     <input type="text" id="modele">
@@ -169,33 +199,17 @@
     <label for="description">Description</label>
     <input type="text" id="description">
 
-<label for="service">Service</label>
-<select id="service">
-  <option value="">(tous)</option>
-  <option value="Direction générale">Direction générale</option>
-  <option value="Administratif et Financier">        Administratif et Financier</option>
-  <option value="Communication et Marketing">        Communication et Marketing</option>
-  <option value="Formation, Réseaux et Politiques Publiques">        Formation, Réseaux et Politiques Publiques</option>
-  <option value="Innovation Sportive">        Innovation Sportive</option>
-  <option value="Système d'information">        Système d'information</option>
-  <option value="J'Mactiv Entreprise">        J'Mactiv Entreprise</option>
-  <option value="Territoires">Territoires</option>
-</select>
+    <label for="service">Service</label>
+    <select id="service">
+      <option value="">(tous)</option>
+      <option value="Direction générale">Direction générale</option>
+      <option value="Administratif et Financier">Administratif et Financier</option>
+      <option value="Communication et Marketing">Communication et Marketing</option>
+    </select>
 
+    <label for="date_achat">Date d'achat</label>
+    <input type="date" id="date_achat">
 
-<label for="date_achat">Date d'achat</label>
-<input type="date" id="date_achat">
-
-<script>
-  // Remplit automatiquement le champ avec la date du jour
-  document.addEventListener('DOMContentLoaded', function() {
-      const today = new Date().toISOString().substr(0, 10); // format YYYY-MM-DD
-      document.getElementById('date_achat').value = today;
-  });
-</script>
-
-
-          
     <label for="etat">État</label>
     <select id="etat">
         <option value="Utilisé">Utilisé</option>
@@ -222,92 +236,92 @@
     &copy; 2025 FSASPTT - Fédération Sportive des ASPTT
 </footer>
 
-<!-- Librairie scanner compatible iPhone & Android -->
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
-    // Gestion du matériel en LocalStorage
-    function getMateriel() { return JSON.parse(localStorage.getItem('materiel') || '[]'); }
-    function saveMateriel(data) { localStorage.setItem('materiel', JSON.stringify(data)); }
-
-    function ajouterMateriel() {
-        const materiel = {
-            numero: document.getElementById('numero').value,
-            nom: document.getElementById('nom').value,
-            utilisateur: document.getElementById('utilisateur').value,
-            type: document.getElementById('type').value,
-            modele: document.getElementById('modele').value,
-            description: document.getElementById('description').value,
-            service: document.getElementById('service').value,
-            date_achat: document.getElementById('date_achat').value,
-            etat: document.getElementById('etat').value,
-            condition: document.getElementById('condition').value,
-            reserve: document.getElementById('reserve').checked
-        };
-
-        let liste = getMateriel();
-        const index = liste.findIndex(m => m.numero === materiel.numero);
-        if(index !== -1) {
-            liste[index] = materiel;
-            alert("Matériel mis à jour !");
-        } else {
-            liste.push(materiel);
-            alert("Matériel ajouté !");
-        }
-
-        saveMateriel(liste);
-        chargerMateriel();
-        document.getElementById('numero').value = '';
+// Hamburger menu
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+menuBtn.addEventListener('click', () => sidebar.classList.toggle('active'));
+document.addEventListener('click', e => {
+    if(!sidebar.contains(e.target) && !menuBtn.contains(e.target)){
+        sidebar.classList.remove('active');
     }
+});
 
-    function chargerMateriel() {
-        const liste = getMateriel();
-        const ul = document.getElementById('materielList');
-        ul.innerHTML = '';
-        liste.forEach(m => {
-            ul.innerHTML += `<li>
-                <b>${m.numero}</b> - ${m.nom} (${m.type}, ${m.modele})<br>
-                État: ${m.etat}, Condition: ${m.condition}, ${m.reserve ? '📌 Réservé' : 'Libre'}
-            </li>`;
-        });
-    }
+// Date auto
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().substr(0, 10);
+    document.getElementById('date_achat').value = today;
+});
 
-    // Scanner avec html5-qrcode (compatible iOS/Android)
-    function startScanner() {
-        const html5QrCode = new Html5Qrcode("reader");
-        html5QrCode.start(
-            { facingMode: "environment" }, // caméra arrière
-            { fps: 10, qrbox: 250 },
-            (decodedText) => {
-                document.getElementById("numero").value = decodedText;
-                html5QrCode.stop();
-                alert("Code détecté : " + decodedText);
-            },
-            (error) => {
-                console.warn("Scanning...", error);
-            }
-        ).catch(err => {
-            console.error("Erreur démarrage caméra : ", err);
-            alert("Impossible d'accéder à la caméra. Vérifie que tu es en HTTPS et que les permissions sont activées.");
-        });
-    }
+// LocalStorage
+function getMateriel() { return JSON.parse(localStorage.getItem('materiel') || '[]'); }
+function saveMateriel(data) { localStorage.setItem('materiel', JSON.stringify(data)); }
 
-    // Charger la liste au démarrage
-    window.onload = () => {
-        chargerMateriel();
-        startScanner();
+function ajouterMateriel() {
+    const materiel = {
+        numero: document.getElementById('numero').value,
+        nom: document.getElementById('nom').value,
+        utilisateur: document.getElementById('utilisateur').value,
+        type: document.getElementById('type').value,
+        modele: document.getElementById('modele').value,
+        description: document.getElementById('description').value,
+        service: document.getElementById('service').value,
+        date_achat: document.getElementById('date_achat').value,
+        etat: document.getElementById('etat').value,
+        condition: document.getElementById('condition').value,
+        reserve: document.getElementById('reserve').checked
     };
+
+    let liste = getMateriel();
+    const index = liste.findIndex(m => m.numero === materiel.numero);
+    if(index !== -1) {
+        liste[index] = materiel;
+        alert("Matériel mis à jour !");
+    } else {
+        liste.push(materiel);
+        alert("Matériel ajouté !");
+    }
+    saveMateriel(liste);
+    chargerMateriel();
+    document.getElementById('numero').value = '';
+}
+
+function chargerMateriel() {
+    const liste = getMateriel();
+    const ul = document.getElementById('materielList');
+    ul.innerHTML = '';
+    liste.forEach(m => {
+        ul.innerHTML += `<li>
+            <b>${m.numero}</b> - ${m.nom} (${m.type}, ${m.modele})<br>
+            État: ${m.etat}, Condition: ${m.condition}, ${m.reserve ? '📌 Réservé' : 'Libre'}
+        </li>`;
+    });
+}
+
+// Scanner QR
+function startScanner() {
+    const html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        decodedText => {
+            document.getElementById("numero").value = decodedText;
+            html5QrCode.stop();
+            alert("Code détecté : " + decodedText);
+        },
+        error => { console.warn("Scanning...", error); }
+    ).catch(err => {
+        console.error("Erreur démarrage caméra : ", err);
+        alert("Impossible d'accéder à la caméra. Vérifie HTTPS et permissions.");
+    });
+}
+
+window.onload = () => {
+    chargerMateriel();
+    startScanner();
+};
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
