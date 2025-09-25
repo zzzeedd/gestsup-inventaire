@@ -20,34 +20,32 @@ body {
     color: var(--fsas-noir);
 }
 
-/* Header et hamburger */
+/* Header avec titre centré */
 header {
     background-color: var(--fsas-noir);
     color: var(--fsas-or);
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: 15px;
     position: relative;
-}
-
-header img {
-    height: 60px;
-    margin-right: 15px;
 }
 
 header h1 {
     font-size: 1.8em;
     margin: 0;
     font-weight: bold;
+    text-align: center;
 }
 
 #menuBtn {
+    position: absolute;
+    right: 15px;
     font-size: 1.8em;
     background: none;
     border: none;
     color: var(--fsas-or);
     cursor: pointer;
-    margin-left: auto;
 }
 
 /* Sidebar menu */
@@ -144,10 +142,10 @@ footer {
 <body>
 
 <header>
-    <img src="Logo FSASPTT Blanc de╠ütoure╠ü.png" alt="Logo FSASPTT">
     <h1>Inventaire FSASPTT</h1>
     <button id="menuBtn">&#9776;</button>
 </header>
+
 
 <!-- Sidebar menu -->
 <div id="sidebar">
@@ -336,3 +334,4 @@ window.onload = () => {
 
 </body>
 </html>
+
