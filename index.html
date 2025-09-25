@@ -21,36 +21,41 @@ body {
     min-height: 100vh;
 }
 header {
-    background: var(--fsas-noir);
-    color: var(--fsas-or);
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    background: var(--fsas-noir);
+    color: var(--fsas-or);
     padding: 18px 24px;
     position: sticky;
     top: 0;
     z-index: 1050;
 }
-header h1 {
-    font-size: 2em;
-    text-align: center;
+.header-left, .header-center, .header-right {
     flex: 1;
+    display: flex;
+    align-items: center;
+}
+.header-left { justify-content: flex-start; }
+.header-center { justify-content: center; pointer-events: none; }
+.header-center h1 {
     margin: 0;
+    font-size: 2.1em;
     font-weight: 700;
-    letter-spacing: 2px;
+    text-align: center;
+}
+.header-right { justify-content: flex-end; }
+.header-right img {
+    height: 90px; /* Plus grand */
+    max-width: 140px;
 }
 #menuBtn {
     font-size: 2em;
     background: none;
     border: none;
     color: var(--fsas-or);
-    margin-right: 18px;
+    padding: 0;
     cursor: pointer;
-    transition: transform 0.15s;
-}
-#menuBtn:active { transform: scale(0.95);}
-header img {
-    height: 54px;
-    margin-left: 10px;
 }
 #sidebar {
     position: fixed;
@@ -76,7 +81,6 @@ header img {
     background: #fafafa;
 }
 ul#historyList { margin: 14px 0 0 0;}
-
 .container {
     margin: 32px auto 80px auto;
     max-width: 960px;
@@ -170,22 +174,26 @@ footer {
 }
 @media (max-width:800px) {
   .container {padding: 18px 7px;}
-  header h1 { font-size: 1.1em;}
-  header img { height: 38px;}
+  .header-center h1 { font-size: 1.1em;}
+  .header-right img { height: 60px;}
 }
 </style>
 </head>
 <body>
 <header>
+  <div class="header-left">
     <button id="menuBtn" aria-label="Menu">&#9776;</button>
+  </div>
+  <div class="header-center">
     <h1>Inventaire FSASPTT</h1>
+  </div>
+  <div class="header-right">
     <img src="Logo-FSASPTT-blanc-detoure.png" alt="Logo FSASPTT" />
+  </div>
 </header>
-
 <aside id="sidebar" aria-label="Menu latéral">
     <h3>Historique du matériel</h3>
     <input type="text" id="searchInput" placeholder="Rechercher..."/>
-    
     <label for="filterType">Filtrer par Type :</label>
     <select id="filterType">
         <option value="">Tous</option>
@@ -196,7 +204,6 @@ footer {
         <option value="Ecran">Ecran</option>
         <option value="Casque">Casque</option>
     </select>
-
     <label for="filterService">Filtrer par Service :</label>
     <select id="filterService">
         <option value="">Tous</option>
@@ -209,10 +216,8 @@ footer {
         <option>J'Mactiv Entreprise</option>
         <option>Territoires</option>
     </select>
-
     <ul id="historyList"></ul>
 </aside>
-
 <main class="container">
     <form class="form-section" autocomplete="off" onsubmit="event.preventDefault(); ajouterMateriel();">
         <h2>Ajouter / Mettre à jour le matériel</h2>
@@ -268,11 +273,9 @@ footer {
         <ul id="materielList"></ul>
     </section>
 </main>
-
 <footer>
     &copy; 2025 FSASPTT - Fédération Sportive des ASPTT
 </footer>
-
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
 /* ---- Sidebar & Responsive ---- */
@@ -284,7 +287,6 @@ window.addEventListener('click', e => {
         sidebar.classList.remove('active');
     }
 });
-
 /* ---- Date et initialisation ---- */
 document.addEventListener('DOMContentLoaded', () => {
     if (!document.getElementById('date_achat').value) {
@@ -293,7 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
     chargerMateriel();
     setupFilters();
 });
-
 /* ----- LocalStorage helpers ----- */
 function getMateriel() {
     return JSON.parse(localStorage.getItem('materiel') || '[]');
@@ -301,7 +302,6 @@ function getMateriel() {
 function saveMateriel(data) {
     localStorage.setItem('materiel', JSON.stringify(data));
 }
-
 function ajouterMateriel() {
     const materiel = {
         numero: document.getElementById('numero').value.trim(),
@@ -330,7 +330,6 @@ function ajouterMateriel() {
     document.querySelector('.form-section').reset();
     document.getElementById('date_achat').value = new Date().toISOString().split('T')[0];
 }
-
 /* ---- Affichage liste ---- */
 function chargerMateriel(filtre={}) {
     let liste = getMateriel();
@@ -363,7 +362,6 @@ function chargerMateriel(filtre={}) {
         </li>`;
     });
 }
-
 /* ---- Barre latérale & Filtres ---- */
 function setupFilters() {
     document.getElementById('searchInput').addEventListener('input', () => updateFilteredHistory());
@@ -376,7 +374,6 @@ function updateFilteredHistory() {
     const service = document.getElementById('filterService').value;
     chargerMateriel({search, type, service});
 }
-
 /* ---- Scanner QR/Barres ---- */
 function startScanner() {
     if(!document.getElementById('reader')) return;
@@ -395,4 +392,3 @@ window.onload = () => startScanner();
 </script>
 </body>
 </html>
-
