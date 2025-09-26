@@ -13,7 +13,6 @@
   --fsas-gris: #f4f4f4;
   --fsas-shadow: rgba(0,0,0,0.07) 0px 2px 4px 0px, rgba(0,0,0,0.07) 0px 2.5px 5px 0px;
 }
-
 body {
   background: var(--fsas-gris);
   margin: 0;
@@ -21,7 +20,6 @@ body {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   min-height: 100vh;
 }
-
 header {
   display: flex;
   align-items: center;
@@ -33,7 +31,6 @@ header {
   top: 0;
   z-index: 1050;
 }
-
 .header-left, .header-center, .header-right {
   flex: 1;
   display: flex;
@@ -52,7 +49,6 @@ header {
   height: 90px;
   max-width: 140px;
 }
-
 #menuBtn {
   font-size: 2em;
   background: none;
@@ -61,7 +57,6 @@ header {
   padding: 0;
   cursor: pointer;
 }
-
 #sidebar {
   position: fixed;
   top: 0;
@@ -101,7 +96,6 @@ button.clear-btn {
 button.clear-btn:hover {
   background: #bbb;
 }
-
 .container {
   margin: 32px auto 80px auto;
   max-width: 960px;
@@ -110,7 +104,6 @@ button.clear-btn:hover {
   box-shadow: var(--fsas-shadow);
   padding: 34px 24px;
 }
-
 h2 {
   color: var(--fsas-noir);
   margin-top: 0;
@@ -119,7 +112,6 @@ h2 {
   font-size: 1.24em;
   margin-bottom: 18px;
 }
-
 .form-section { margin-bottom: 34px;}
 label {
   font-weight: 700;
@@ -158,14 +150,12 @@ button:hover:not(:disabled) {
   background: #b88c2f;
   transform: scale(1.05);
 }
-
 #reader {
   max-width: 400px;
   margin: 18px auto 18px auto;
   border: 2px solid var(--fsas-noir);
   border-radius: 7px;
 }
-
 ul#materielList {
   list-style: none;
   padding: 0;
@@ -204,7 +194,6 @@ ul#materielList li strong {
 .statuts .cond.neuf { background: #d5e5b5;}
 .statuts .cond.pasneuf { background: #ffe4b5;}
 .statuts .reserve { background: #ffedb5; color: #9f7a13;}
-
 footer {
   text-align: center;
   padding: 13px 0;
@@ -217,7 +206,6 @@ footer {
   width: 100%;
   letter-spacing: 1.1px;
 }
-
 .notification {
   position: fixed;
   bottom: 90px;
@@ -234,12 +222,10 @@ footer {
   transition: opacity 0.3s ease;
   z-index: 3000;
 }
-
 .notification.show {
   opacity: 1;
   pointer-events: auto;
 }
-
 @media (max-width:800px) {
   .container {padding: 18px 7px;}
   .header-center h1 { font-size: 1.1em;}
@@ -252,39 +238,236 @@ footer {
   <div class="header-left">
     <button id="menuBtn" aria-label="Menu">☰</button>
   </div>
-  <div class="header-center">
-    <h1>Inventaire FSASPTT</h1>
-  </div>
+  <div class="header-center"><h1>Inventaire FSASPTT</h1></div>
   <div class="header-right">
-     <img src="ASPTT FEDERATION OMNISPORTS rectangle blanc-01.png" alt="LogoRectangle" />
+    <img src="ASPTT FEDERATION OMNISPORTS rectangle blanc-01.png" alt="LogoRectangle" />
   </div>
 </header>
 <aside id="sidebar" aria-label="Menu latéral">
-    <h3>Historique du matériel</h3>
-    <input type="text" id="searchInput" placeholder="Rechercher..." autocomplete="off"/>
-    <button class="clear-btn" id="clearFiltersBtn" type="button">Effacer les filtres</button>
-    <label for="filterType">Filtrer par Type :</label>
-    <select id="filterType" autocomplete="off">
-        <option value="">...</option>
-        <option value="Ordinateur">Ordinateur</option>
-        <option value="Imprimante">Imprimante</option>
-        <option value="PC Portable">PC Portable</option>
-        <option value="Ecran">Ecran</option>
-        <option value="Casque">Casque</option>
-    </select>
-    <label for="filterService">Filtrer par Service :</label>
-    <select id="filterService" autocomplete="off">
-        <option value="">...</option>
-        <option>Direction générale</option>
-        <option>Administratif et Financier</option>
-        <option>Marketing Communication Partenariats</option>
-        <option>Formation, Réseaux et Politiques Publiques</option>
-        <option>Innovation Sportive</option>
-        <option>Système d'information</option>
-        <option>J'Mactiv Entreprise</option>
-        <option>Territoires</option>
-    </select>
-    <ul id="historyList"></ul>
+  <h3>Historique du matériel</h3>
+  <input type="text" id="searchInput" placeholder="Rechercher..." autocomplete="off"/>
+  <button class="clear-btn" id="clearFiltersBtn" type="button">Effacer les filtres</button>
+  <label for="filterType">Filtrer par Type :</label>
+  <select id="filterType" autocomplete="off">
+    <option value="">...</option>
+    <option value="Ordinateur">Ordinateur</option>
+    <option value="Imprimante">Imprimante</option>
+    <option value="PC Portable">PC Portable</option>
+    <option value="Ecran">Ecran</option>
+    <option value="Casque">Casque</option>
+  </select>
+  <label for="filterService">Filtrer par Service :</label>
+  <select id="filterService" autocomplete="off">
+    <option value="">...</option>
+    <option>Direction générale</option>
+    <option>Administratif et Financier</option>
+    <option>Marketing Communication Partenariats</option>
+    <option>Formation, Réseaux et Politiques Publiques</option>
+    <option>Innovation Sportive</option>
+    <option>Système d'information</option>
+    <option>J'Mactiv Entreprise</option>
+    <option>Territoires</option>
+  </select>
+  <ul id="historyList"></ul>
 </aside>
 <main class="container">
-    <form class="form-section" autocomplete
+  <form class="form-section" autocomplete="off" onsubmit="event.preventDefault(); ajouterMateriel();">
+    <h2>Ajouter / Mettre à jour le matériel</h2>
+    <label for="numero" required>Numéro (code-barres ou manuel)</label>
+    <input type="text" id="numero" placeholder="Scannez ou écrivez le code-barres" autocomplete="off" required />
+    <div id="reader"></div>
+    <label for="nom">Nom</label>
+    <input type="text" id="nom" />
+    <label for="utilisateur">Utilisateur</label>
+    <input type="text" id="utilisateur" />
+    <label for="type" required>Type</label>
+    <select id="type" required>
+      <option value="">...</option>
+      <option>PC Portable</option>
+      <option>Ecran</option>
+      <option>Casque</option>
+    </select>
+    <label for="modele" required>Modèle</label>
+    <input type="text" id="modele" required />
+    <label for="description">Description</label>
+    <input type="text" id="description" />
+    <label for="service">Service</label>
+    <select id="service">
+      <option value="">...</option>
+      <option>Direction générale</option>
+      <option>Administratif et Financier</option>
+      <option>Marketing Communication Partenariats</option>
+      <option>Formation, Réseaux et Politiques Publiques</option>
+      <option>Innovation Sportive</option>
+      <option>Système d'information</option>
+      <option>J'Mactiv Entreprise</option>
+      <option>Territoires</option>
+    </select>
+    <label for="date_achat" required>Date d'achat</label>
+    <input type="date" id="date_achat" required />
+    <label for="etat" required>État</label>
+    <select id="etat" required>
+      <option value="">...</option>
+      <option>Utilisé</option>
+      <option>En stock</option>
+      <option>Sortie de stock</option>
+    </select>
+    <label for="condition" required>Condition</label>
+    <select id="condition" required>
+      <option value="">...</option>
+      <option>Neuf</option>
+      <option>Pas Neuf</option>
+    </select>
+    <label>Réservé
+      <input type="checkbox" id="reserve" style="width:auto;display:inline-block;margin-left:7px;" />
+    </label>
+    <button type="submit" id="submitBtn" disabled>✅ Ajouter / Mettre à jour</button>
+  </form>
+  <section>
+    <h2>Liste du matériel</h2>
+    <ul id="materielList"></ul>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 FSASPTT - Fédération Sportive des ASPTT
+</footer>
+
+<div id="notification" class="notification"></div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+menuBtn.onclick = () => sidebar.classList.toggle('active');
+window.addEventListener('click', e => {
+  if (sidebar.classList.contains('active') && !sidebar.contains(e.target) && e.target !== menuBtn) {
+    sidebar.classList.remove('active');
+  }
+});
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.getElementById('date_achat').value) {
+    document.getElementById('date_achat').value = new Date().toISOString().split('T')[0];
+  }
+  chargerMateriel();
+  setupFilters();
+  validateForm();
+});
+function getMateriel() {
+  return JSON.parse(localStorage.getItem('materiel') || '[]');
+}
+function saveMateriel(data) {
+  localStorage.setItem('materiel', JSON.stringify(data));
+}
+function showNotification(message, duration = 3000) {
+  const notif = document.getElementById('notification');
+  notif.textContent = message;
+  notif.classList.add('show');
+  setTimeout(() => notif.classList.remove('show'), duration);
+}
+function ajouterMateriel() {
+  const materiel = {
+    numero: document.getElementById('numero').value.trim(),
+    nom: document.getElementById('nom').value.trim(),
+    utilisateur: document.getElementById('utilisateur').value.trim(),
+    type: document.getElementById('type').value,
+    modele: document.getElementById('modele').value.trim(),
+    description: document.getElementById('description').value.trim(),
+    service: document.getElementById('service').value,
+    date_achat: document.getElementById('date_achat').value,
+    etat: document.getElementById('etat').value,
+    condition: document.getElementById('condition').value,
+    reserve: document.getElementById('reserve').checked
+  };
+  let liste = getMateriel();
+  const idx = liste.findIndex(el => el.numero === materiel.numero);
+  if (idx !== -1) {
+    liste[idx] = materiel;
+    showNotification("Matériel mis à jour !");
+  } else {
+    liste.push(materiel);
+    showNotification("Matériel ajouté !");
+  }
+  saveMateriel(liste);
+  chargerMateriel();
+  document.querySelector('.form-section').reset();
+  document.getElementById('date_achat').value = new Date().toISOString().split('T')[0];
+  validateForm();
+}
+function chargerMateriel(filtre = {}) {
+  let liste = getMateriel();
+  if (filtre.type) liste = liste.filter(m => m.type === filtre.type);
+  if (filtre.service) liste = liste.filter(m => m.service === filtre.service);
+  if (filtre.search) {
+    const lower = filtre.search.toLowerCase();
+    liste = liste.filter(m =>
+      (m.nom && m.nom.toLowerCase().includes(lower)) ||
+      (m.utilisateur && m.utilisateur.toLowerCase().includes(lower)) ||
+      (m.description && m.description.toLowerCase().includes(lower)) ||
+      (m.numero && m.numero.toLowerCase().includes(lower))
+    );
+  }
+  const ul = document.getElementById('materielList');
+  ul.innerHTML = '';
+  if (liste.length === 0) {
+    ul.innerHTML = `<li style="color:#B00;">Aucun matériel trouvé.</li>`;
+    return;
+  }
+  liste.forEach(m => {
+    ul.innerHTML += `<li>
+            <strong>${m.numero}</strong> ${m.nom} <small>(${m.type}, ${m.modele || "-"})</small>
+            <span class="statuts">
+                <span class="etat">${m.etat}</span>
+                <span class="cond ${m.condition === 'Neuf' ? 'neuf' : 'pasneuf'}">${m.condition}</span>
+                ${m.reserve ? '<span class="reserve">📌 Réservé</span>' : ''}
+            </span>
+        </li>`;
+  });
+}
+function setupFilters() {
+  document.getElementById('searchInput').addEventListener('input', updateFilteredHistory);
+  document.getElementById('filterType').addEventListener('change', updateFilteredHistory);
+  document.getElementById('filterService').addEventListener('change', updateFilteredHistory);
+  document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+    document.getElementById('searchInput').value = "";
+    document.getElementById('filterType').value = "";
+    document.getElementById('filterService').value = "";
+    chargerMateriel({});
+  });
+}
+function updateFilteredHistory() {
+  const search = document.getElementById('searchInput').value.trim();
+  const type = document.getElementById('filterType').value;
+  const service = document.getElementById('filterService').value;
+  chargerMateriel({ search, type, service });
+}
+const formSection = document.querySelector('.form-section');
+const submitBtn = document.querySelector('button[type="submit"]');
+function validateForm() {
+  const requiredFields = ['numero', 'type', 'modele', 'date_achat', 'etat', 'condition'];
+  let valid = true;
+  requiredFields.forEach(id => {
+    if (!document.getElementById(id).value.trim()) valid = false;
+  });
+  submitBtn.disabled = !valid;
+}
+formSection.addEventListener('input', validateForm);
+validateForm();
+function startScanner() {
+  if (!document.getElementById('reader')) return;
+  const html5QrCode = new Html5Qrcode("reader");
+  html5QrCode.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: 200 },
+    decodedText => {
+      document.getElementById("numero").value = decodedText;
+      validateForm();
+      html5QrCode.stop();
+    },
+    () => {}
+  ).catch(err => {});
+}
+window.onload = () => startScanner();
+</script>
+</body>
+</html>
